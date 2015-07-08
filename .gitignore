@@ -3,3 +3,4 @@ node_modules
 *.class
 *~
 npm-debug.log
+quiz.sqlite
