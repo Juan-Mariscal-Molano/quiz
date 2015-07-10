@@ -25,7 +25,6 @@ exports.load = function(req, res, next, quizId){
 // Get /quizes
 exports.index = function(req, res){
 	var search = req.query.search;
-<<<<<<< HEAD
 	var query = null;
 
 	if(search !== null && search !== undefined){
@@ -41,23 +40,6 @@ exports.index = function(req, res){
 			res.render('quizes/index.ejs', { quizes: quizes, search: search});
 		}
 	).catch(function(error) {next(error);});
-	
-=======
-	if(search !== null && search !== undefined){
-		search = replaceAll(search, ' ', '%');
-		models.Quiz.findAll({where: ["pregunta like ?", '%' + search + '%'], order: 'pregunta ASC'}).then(
-			function(quizes){
-				res.render('quizes/index.ejs', { quizes: quizes, search: req.query.search});
-			}
-		).catch(function(error) {next(error);});
-	} else {
-		models.Quiz.findAll({order: 'pregunta ASC'}).then(
-			function(quizes){
-				res.render('quizes/index.ejs', { quizes: quizes, search: 'Busque aquí'});
-			}
-		).catch(function(error) {next(error);});
-	}
->>>>>>> c9ca80f1123e5634bad547beb3a873d4a32fbbbd
 }
 
 // GET /quizes/:id
