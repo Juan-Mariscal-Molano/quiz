@@ -1,5 +1,13 @@
 var models = require('../models/models.js');
 
+// Reemplaza en text todas las apariciones de charSearch por charReplace
+function replaceAll(text, charSearch, charReplace){
+	while (text.toString().indexOf(charSearch) != -1){
+		text = text.toString().replace(charSearch, charReplace);
+	}
+	return text;
+}
+
 // Autoload - factoriza el código si ruta incluye :quizId
 exports.load = function(req, res, next, quizId){
 	models.Quiz.find(quizId).then(
@@ -16,11 +24,23 @@ exports.load = function(req, res, next, quizId){
 
 // Get /quizes
 exports.index = function(req, res){
-	models.Quiz.findAll().then(
+	var search = req.query.search;
+	var query = null;
+
+	if(search !== null && search !== undefined){
+		query = {where: ["lower(pregunta) like lower(?)", '%' + replaceAll(search, ' ', '%') + '%'], order: 'pregunta ASC'};
+		
+	} else {
+		query = {order: 'pregunta ASC'};
+		search = 'Busque aquí';
+	}
+
+	models.Quiz.findAll(query).then(
 		function(quizes){
-			res.render('quizes/index.ejs', { quizes: quizes});
+			res.render('quizes/index.ejs', { quizes: quizes, search: search});
 		}
 	).catch(function(error) {next(error);});
+	
 }
 
 // GET /quizes/:id
