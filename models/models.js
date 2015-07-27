@@ -33,8 +33,8 @@ var Quiz = sequelize.import(quizPath);
 // Exportar la definición de la tabla Quiz
 exports.Quiz = Quiz;
 
-sequelize.sync().success(function(){
-	console.log('sequelize.sync().success')
+sequelize.sync().then(function(){
+	console.log('sequelize.sync().then')
 	// succes(...) ejecuta el manejador una vez creada la tabla
 	Quiz.count().success(function(count){
 		console.log('count: ' + count);
