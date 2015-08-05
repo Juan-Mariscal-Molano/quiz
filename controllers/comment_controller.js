@@ -7,10 +7,6 @@ exports.new = function(req, res){
 
 // POST quizes/:quizId/comments/create
 exports.create = function(req, res){
-
-console.log("###### " + req.body.comment.texto);
-console.log("###### " + req.params.quizId);
-
 	var comment = models.Comment.build({
 		texto: req.body.comment.texto,
 		QuizId: req.params.quizId
