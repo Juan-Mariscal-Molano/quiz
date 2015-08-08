@@ -41,6 +41,29 @@ app.use(function(req, res, next) {
   next();
 });
 
+// Middleware de auto-logout 
+app.use(function(req, res, next) {
+    // Control de tiempo para auto-logout
+    var timeMax = 120 * 1000;
+
+    var now = (new Date(Date.now())).getTime();
+
+    if(req.session.user){
+        if(!req.session.sessionExpire){
+            req.session.sessionExpire = now;
+        } else if( (now - req.session.sessionExpire) >= timeMax){
+            delete req.session.user;
+            delete req.session.sessionExpire;
+            // redirect para que vuelva a hacer loggin
+            res.redirect("/login");
+        } else {
+            req.session.sessionExpire = now;
+        }
+    }
+    next();
+});
+
+
 app.use('/', routes);
 
 // catch 404 and forward to error handler
