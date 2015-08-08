@@ -55,7 +55,7 @@ app.use(function(req, res, next) {
             delete req.session.user;
             delete req.session.sessionExpire;
             // redirect para que vuelva a hacer loggin
-            res.redirect("/login");
+            // res.redirect("/login"); Falla en heroku
         } else {
             req.session.sessionExpire = now;
         }
