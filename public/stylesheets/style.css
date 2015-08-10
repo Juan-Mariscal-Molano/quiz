@@ -16,5 +16,6 @@ th, td 							{ padding: 5px; text-align: center; }
 table#quizes tr:nth-child(even) { background-color: #E9F2A5; }
 table#quizes tr:nth-child(odd) 	{ background-color:#fff; }
 table#quizes th					{ background-color: grey; color: white; }
+table#statistics th, td			{ text-align: left; }
 
-.right 							{float: right;}
+.right 							{ float: right; }
