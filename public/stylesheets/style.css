@@ -11,7 +11,8 @@ nav span             			{ margin: 0px 10px 0px 0px; width: 100%; display: inline
 
 #ErrorMsgs						{ color: #f61; font-size: smaler}
 
-table 							{ width:100%; }
+table							{ margin: 0px auto; }
+table#quizes					{ width:100%; }
 th, td 							{ padding: 5px; text-align: center; }
 table#quizes tr:nth-child(even) { background-color: #E9F2A5; }
 table#quizes tr:nth-child(odd) 	{ background-color:#fff; }

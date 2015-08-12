@@ -7,20 +7,22 @@
 <p><a href="/quizes/<%= quiz.id %>/comments/new"><button>Nuevo comentario</button></a></p>
 
 <p><strong>Comentarios:</strong></p>
-<% for(index in quiz.Comments){ %>
-	<% if(quiz.Comments[index].publicado || session.user) { %>
-		<form method="post" action="/quizes/<%= quiz.id %>/comments/<%= quiz.Comments[index].id %>?_method=delete">
-			<p>	- <%= quiz.Comments[index].texto %>
+<table>
+	<% for(index in quiz.Comments){ %>
+		<% if(quiz.Comments[index].publicado || session.user) { %>
+		<tr> 
+			<td><%= quiz.Comments[index].texto %> </td>
 				<% if(session.user) { %>
-					<button type="submit" onClick="return confirm('¿Borrar: <%= quiz.Comments[index].texto %>?');">
-						Borrar
-					</button>
+					<td><form method="post" action="/quizes/<%= quiz.id %>/comments/<%= quiz.Comments[index].id %>?_method=delete">
+							<button type="submit" onClick="return confirm('¿Borrar: <%= quiz.Comments[index].texto %>?');">
+								Borrar
+							</button>
+					</form></td>
 				<% } %>
 				<% if(session.user && !quiz.Comments[index].publicado) { %>
-					<a href="/quizes/<%= quiz.id %>/comments/<%=quiz.Comments[index].id%>/publish"><button>Publicar</button></a>
+					<td><a href="/quizes/<%= quiz.id %>/comments/<%=quiz.Comments[index].id%>/publish"><button>Publicar</button></a></td>
 				<% } %>
-			</p>
-		</form>
-
-	<% } %>
-<%}%>
+		</tr>
+		<% } %>
+	<%}%>
+</table>
