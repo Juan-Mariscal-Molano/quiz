@@ -44,7 +44,7 @@ app.use(function(req, res, next) {
 // Middleware de auto-logout 
 app.use(function(req, res, next) {
     // Control de tiempo para auto-logout
-    var timeMax = 2 * 1000;
+    var timeMax = 120 * 1000;
 
     var now = (new Date(Date.now())).getTime();
 
@@ -54,8 +54,9 @@ app.use(function(req, res, next) {
         } else if( (now - req.session.sessionExpire) >= timeMax){
             delete req.session.user;
             delete req.session.sessionExpire;
-            // render para que vuelva a hacer loggin
-            res.render('sessions/new', {errors: [{"message": "Sesión caducada"}]});
+            // redirect para que vuelva a hacer loggin
+            // res.redirect("/login"); Falla en heroku
+            // res.render('sessions/new', {errors: [{"message": "Sesión caducada"}]}); También falla en heroku
         } else {
             req.session.sessionExpire = now;
         }
