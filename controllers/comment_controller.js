@@ -58,3 +58,15 @@ exports.publish = function(req, res) {
 	});
 
 };
+
+// DELETE comments/:commentId
+exports.destroy = function(req, res){
+	req.comment
+	.destroy()
+	.then(
+		function(){
+			res.redirect('/quizes/'+req.params.quizId); // Redirección HTTP (URL relativo) lista de preguntas
+	}).catch(function(error){
+		next(error);
+	});
+}
